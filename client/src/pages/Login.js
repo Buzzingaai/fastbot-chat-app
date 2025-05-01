@@ -4,9 +4,10 @@ import {
   signInWithPopup, 
   GoogleAuthProvider, 
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword 
+  signInWithEmailAndPassword,
+  updateProfile
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, saveUserData } from '../firebase';
 import {
   Container,
   Box,
@@ -30,6 +31,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [tabValue, setTabValue] = useState(0); // 0 for Sign In, 1 for Sign Up
 
   const handleTabChange = (event, newValue) => {
@@ -44,6 +46,8 @@ function Login() {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log("Successfully signed in:", result.user.email);
+      // Save user data to Firestore
+      await saveUserData(result.user);
       navigate('/');
     } catch (error) {
       console.error('Error signing in with Google:', error);
@@ -69,7 +73,19 @@ function Login() {
     setError('');
     
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // Create the user
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Update profile with name if provided
+      if (name) {
+        await updateProfile(result.user, {
+          displayName: name
+        });
+      }
+      
+      // Save user data to Firestore
+      await saveUserData(result.user);
+      
       navigate('/');
     } catch (error) {
       console.error('Error signing up:', error);
@@ -94,7 +110,9 @@ function Login() {
     setError('');
     
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      // Update last login in Firestore
+      await saveUserData(result.user);
       navigate('/');
     } catch (error) {
       console.error('Error signing in:', error);
@@ -175,6 +193,19 @@ function Login() {
             </Tabs>
 
             <Box component="form" sx={{ width: '100%' }}>
+              {tabValue === 1 && (
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  id="name"
+                  label="Your Name (optional)"
+                  name="name"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  sx={{ mb: 2 }}
+                />
+              )}
               <TextField
                 margin="normal"
                 required

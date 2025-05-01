@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import Login from './pages/Login';
 import Chat from './pages/Chat';
+import Admin from './pages/Admin';
 import Navbar from './components/Navbar';
 
 const theme = createTheme({
@@ -63,6 +64,10 @@ function App() {
           <Route
             path="/"
             element={user ? <Chat /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin"
+            element={user ? <Admin user={user} /> : <Navigate to="/login" />}
           />
         </Routes>
       </Router>
