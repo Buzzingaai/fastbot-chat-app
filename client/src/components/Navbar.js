@@ -23,17 +23,27 @@ function Navbar({ user }) {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#232a3d' }}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          FastBot Chat
+        <Typography 
+          variant="h4" 
+          component="div" 
+          sx={{ 
+            flexGrow: 1, 
+            fontWeight: 'bold',
+            fontFamily: 'Arial, sans-serif',
+            letterSpacing: '1px',
+          }}
+        >
+          <span style={{ color: 'white' }}>BUZZINGA</span>
+          <span style={{ color: '#ffd700' }}>A</span>
         </Typography>
         {user && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body1">
+            <Typography variant="body1" sx={{ color: 'white' }}>
               {user.email}
             </Typography>
-            <Button color="inherit" onClick={handleSignOut}>
+            <Button color="inherit" onClick={handleSignOut} sx={{ color: 'white' }}>
               Sign Out
             </Button>
           </Box>

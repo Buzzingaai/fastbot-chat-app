@@ -10,11 +10,17 @@ import Navbar from './components/Navbar';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#232a3d',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#ffd700',
     },
+    background: {
+      default: '#232a3d',
+    },
+  },
+  typography: {
+    fontFamily: 'Arial, sans-serif',
   },
 });
 
@@ -33,8 +39,14 @@ function App() {
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#232a3d',
+      }}>
+        <CircularProgress sx={{ color: '#ffd700' }} />
       </Box>
     );
   }
