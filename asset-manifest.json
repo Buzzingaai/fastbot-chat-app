@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/fastbot-chat-app/static/js/main.8b41f467.js",
+    "index.html": "/fastbot-chat-app/index.html",
+    "main.8b41f467.js.map": "/fastbot-chat-app/static/js/main.8b41f467.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.8b41f467.js"
+  ]
+}
