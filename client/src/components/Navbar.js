@@ -9,11 +9,9 @@ import {
   Button,
   Box,
 } from '@mui/material';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
-function Navbar() {
+function Navbar({ user }) {
   const navigate = useNavigate();
-  const [user] = useAuthState(auth);
 
   const handleSignOut = async () => {
     try {

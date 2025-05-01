@@ -2,7 +2,7 @@
   "name": "fastbot-chat-client",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://[your-github-username].github.io/fastbot-chat-app",
+  "homepage": "https://buzzingaai.github.io/fastbot-chat-app",
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",

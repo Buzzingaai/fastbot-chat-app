@@ -1,7 +1,7 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import React, { useEffect, useState } from 'react';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider, createTheme, CircularProgress, Box } from '@mui/material';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import Login from './pages/Login';
 import Chat from './pages/Chat';
@@ -18,34 +18,39 @@ const theme = createTheme({
   },
 });
 
-function PrivateRoute({ children }) {
-  const [user, loading] = useAuthState(auth);
-  
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
-  
-  return children;
-}
-
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Navbar />
+        <Navbar user={user} />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route 
+            path="/login" 
+            element={user ? <Navigate to="/" /> : <Login />} 
+          />
           <Route
             path="/"
-            element={
-              <PrivateRoute>
-                <Chat />
-              </PrivateRoute>
-            }
+            element={user ? <Chat /> : <Navigate to="/login" />}
           />
         </Routes>
       </Router>
