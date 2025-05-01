@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -14,13 +14,16 @@ import {
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+// List of admin email addresses
+const ADMIN_EMAILS = ['ali.moheyaldeen@gmail.com', 'ALI@BUZZINGA.AI'];
+
 function Navbar({ user }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   
-  // For now, all users have admin access
-  const isAdmin = true;
+  // Check if current user is an admin
+  const isAdmin = user && ADMIN_EMAILS.includes(user.email.toLowerCase());
 
   const handleSignOut = async () => {
     try {
