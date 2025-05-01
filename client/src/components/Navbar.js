@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth, getAllUsers } from '../firebase';
+import { auth } from '../firebase';
 import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   Box,
   IconButton,
   Menu,
@@ -17,37 +16,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function Navbar({ user }) {
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   
-  // For demo purposes, defining admin access
-  // The first registered user or specific email addresses can be admin
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      if (user) {
-        try {
-          const adminEmails = ['admin@example.com']; // Add your admin email
-          
-          // Check if user email is in admin list
-          if (adminEmails.includes(user.email)) {
-            setIsAdmin(true);
-            return;
-          }
-          
-          // Or check if this is the first registered user
-          const users = await getAllUsers();
-          if (users.length === 1) {
-            setIsAdmin(true);
-          }
-        } catch (error) {
-          console.error('Error checking admin status:', error);
-        }
-      }
-    };
-    
-    checkAdminStatus();
-  }, [user]);
+  // For now, all users have admin access
+  const isAdmin = true;
 
   const handleSignOut = async () => {
     try {
