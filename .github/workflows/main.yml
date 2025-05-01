@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
@@ -17,6 +19,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './client/package-lock.json'
           
       - name: Install Dependencies
         working-directory: ./client
@@ -25,14 +29,21 @@ jobs:
       - name: Create env file
         working-directory: ./client
         run: |
-          echo "REACT_APP_GEMINI_API_KEY=${{ secrets.REACT_APP_GEMINI_API_KEY }}" > .env
+          touch .env
+          echo "REACT_APP_GEMINI_API_KEY=${{ secrets.REACT_APP_GEMINI_API_KEY }}" >> .env
+          cat .env
         
       - name: Build
         working-directory: ./client
-        run: npm run build
+        run: |
+          npm run build
+        env:
+          REACT_APP_GEMINI_API_KEY: ${{ secrets.REACT_APP_GEMINI_API_KEY }}
         
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: client/build
+          folder: ./client/build
+          token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
+          clean: true
