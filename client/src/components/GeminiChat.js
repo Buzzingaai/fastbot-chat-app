@@ -23,7 +23,6 @@ const GeminiChat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [knowledgeBase, setKnowledgeBase] = useState('');
   const [knowledgeFiles, setKnowledgeFiles] = useState([]);
   const [selectedKnowledge, setSelectedKnowledge] = useState('');
   const messagesEndRef = useRef(null);
