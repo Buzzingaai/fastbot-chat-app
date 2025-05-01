@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/fastbot-chat-app/static/css/main.11caafed.css",
-    "main.js": "/fastbot-chat-app/static/js/main.af56ef2f.js",
+    "main.js": "/fastbot-chat-app/static/js/main.07e34f7b.js",
     "index.html": "/fastbot-chat-app/index.html",
     "main.11caafed.css.map": "/fastbot-chat-app/static/css/main.11caafed.css.map",
-    "main.af56ef2f.js.map": "/fastbot-chat-app/static/js/main.af56ef2f.js.map"
+    "main.07e34f7b.js.map": "/fastbot-chat-app/static/js/main.07e34f7b.js.map"
   },
   "entrypoints": [
     "static/css/main.11caafed.css",
-    "static/js/main.af56ef2f.js"
+    "static/js/main.07e34f7b.js"
   ]
 }
