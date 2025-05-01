@@ -154,7 +154,7 @@ function Login() {
               color: 'white',
             }}
           >
-            <span style={{ color: 'white' }}>BUZZINGA</span>
+            <span style={{ color: 'white' }}>BUZZING</span>
             <span style={{ color: '#ffd700' }}>A</span>
           </Typography>
           
