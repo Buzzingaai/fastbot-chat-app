@@ -2,8 +2,8 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
+// Replace with your actual Firebase configuration from Firebase Console
 const firebaseConfig = {
-  // Replace these with your Firebase configuration
   apiKey: "AIzaSyA5GE4eYu0n_BHdFR-w_m_ImPJvTrHK7CQ",
   authDomain: "fir-auth-starter-sfuse.firebaseapp.com",
   projectId: "firebase-auth-starter-sfuse",
