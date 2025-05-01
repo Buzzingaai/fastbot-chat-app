@@ -3,6 +3,10 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 // Replace with your actual API key
 const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'YOUR_GEMINI_API_KEY';
 
+// Debug log for API key (masking most of it for security)
+console.log('API Key Status:', GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY' ? 'Using fallback (incorrect)' : 
+  `Using environment variable: ${GEMINI_API_KEY.slice(0, 4)}...${GEMINI_API_KEY.slice(-4)}`);
+
 // Initialize the API
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
@@ -71,7 +75,21 @@ User query: ${message}`;
     return text;
   } catch (error) {
     console.error('Error communicating with Gemini:', error);
-    return 'عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.';
+    console.error('Error details:', {
+      message: error.message,
+      name: error.name,
+      stack: error.stack,
+      apiKey: GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY' ? 'Using default (incorrect)' : 'Using environment variable'
+    });
+    
+    // Return more specific error message
+    if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY') {
+      return 'خطأ في مفتاح API: تأكد من إضافة مفتاح Gemini API الصحيح في ملف .env';
+    } else if (error.message && error.message.includes('API key')) {
+      return 'خطأ في مفتاح API: مفتاح API غير صالح أو منتهي الصلاحية';
+    } else {
+      return 'عذرًا، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.';
+    }
   }
 };
 
