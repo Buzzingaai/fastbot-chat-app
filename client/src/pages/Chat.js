@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Box } from '@mui/material';
-import GeminiChat from '../components/GeminiChat';
+import OpenAIChat from '../components/OpenAIChat';
 
 function Chat() {
   return (
@@ -19,7 +19,7 @@ function Chat() {
           justifyContent: 'center',
         }}
       >
-        <GeminiChat />
+        <OpenAIChat />
       </Container>
     </Box>
   );

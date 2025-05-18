@@ -17,9 +17,9 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { sendMessageToGemini, startNewChat, loadKnowledgeBase } from '../services/geminiService';
+import { sendMessageToOpenAI, startNewChat, loadKnowledgeBase } from '../services/openaiService';
 
-const GeminiChat = () => {
+const OpenAIChat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,12 +48,12 @@ const GeminiChat = () => {
     ]);
 
     try {
-      // Send to Gemini with active knowledge base
+      // Send to OpenAI with active knowledge base
       const knowledgeText = selectedKnowledge 
         ? knowledgeFiles.find(kf => kf.name === selectedKnowledge)?.content || ''
         : '';
         
-      const response = await sendMessageToGemini(userMessage, knowledgeText);
+      const response = await sendMessageToOpenAI(userMessage, knowledgeText);
       
       // Add bot response to chat
       setMessages(prevMessages => [
@@ -132,7 +132,7 @@ const GeminiChat = () => {
         <Typography variant="h6">
           <span style={{ color: 'white' }}>BUZZING</span>
           <span style={{ color: '#ffd700' }}>A</span>
-          <span style={{ fontSize: '0.8em', marginLeft: '8px' }}>powered by Gemini</span>
+          <span style={{ fontSize: '0.8em', marginLeft: '8px' }}>powered by OpenAI</span>
         </Typography>
         <Box>
           <IconButton 
@@ -286,4 +286,4 @@ const GeminiChat = () => {
   );
 };
 
-export default GeminiChat; 
+export default OpenAIChat;

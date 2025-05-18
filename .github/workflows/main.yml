@@ -30,7 +30,7 @@ jobs:
         working-directory: ./client
         run: |
           touch .env
-          echo "REACT_APP_GEMINI_API_KEY=${{ secrets.REACT_APP_GEMINI_API_KEY }}" >> .env
+          echo "REACT_APP_OPENAI_API_KEY=${{ secrets.REACT_APP_OPENAI_API_KEY }}" >> .env
           cat .env
         
       - name: Build
@@ -38,7 +38,7 @@ jobs:
         run: |
           npm run build
         env:
-          REACT_APP_GEMINI_API_KEY: ${{ secrets.REACT_APP_GEMINI_API_KEY }}
+          REACT_APP_OPENAI_API_KEY: ${{ secrets.REACT_APP_OPENAI_API_KEY }}
         
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
