@@ -21,7 +21,10 @@ jobs:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: './client/package-lock.json'
-          
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Install Dependencies
         working-directory: ./client
         run: npm ci
