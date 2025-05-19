@@ -39,7 +39,7 @@ export const sendMessageToOpenAI = async (message, knowledgeBase = '') => {
     chatHistory.push({ role: 'user', content: prompt });
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o', // ChatGPT 4.1 mini
+      model: 'gpt-4o', // use OpenAI gpt-4o model
       messages: chatHistory,
       temperature: 0.7,
       max_tokens: 800,
